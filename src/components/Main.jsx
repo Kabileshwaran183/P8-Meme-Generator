@@ -1,4 +1,18 @@
+import React from "react"
 export default function Main() {
+    const [meme,setMeme] = React.useState({
+        top: "Something",
+        bottom:"Different",
+        imageUrl:"http://i.imgflip.com/1bij.jpg"
+    })
+    function handleChange(event){
+        const {value,name} = event.currentTarget
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            [name]: value
+        }))
+    }
+
     return (
         <main>
             <div className="form">
@@ -6,7 +20,9 @@ export default function Main() {
                     <input
                         type="text"
                         placeholder="One does not simply"
-                        name="topText"
+                        name="top"
+                        onChange={handleChange}
+                        value={meme.top}
                     />
                 </label>
 
@@ -14,15 +30,18 @@ export default function Main() {
                     <input
                         type="text"
                         placeholder="Walk into Mordor"
-                        name="bottomText"
+                        name="bottom"
+                        onChange={handleChange}
+                        value={meme.bottom}
+                        
                     />
                 </label>
                 <button>Get a new meme image 🖼</button>
             </div>
             <div className="meme">
-                <img src="http://i.imgflip.com/1bij.jpg" />
-                <span className="top">One does not simply</span>
-                <span className="bottom">Walk into Mordor</span>
+                <img src={meme.imageUrl} />
+                <span className="top">{meme.top}</span>
+                <span className="bottom">{meme.bottom}</span>
             </div>
         </main>
     )
